@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block title %}| {{ product.title }}{% endblock title %}
+
+{% block content %}
+<div class='text-center mt-4 text-3xl'>
+    {{ product.title}}
+</div>
+<div class='flex'> 
+    <div class="w-3/5">
+        {% for product in product.image.all %}
+        <div>
+            <img src="{{ product.image.url }}" class="w-75" alt="{{ product.title }}">
+        </div>
+   </div>
+    {% endfor %}
+    <div class="w-2/5 ml-4 mt-20 aling-items-center ">
+        <p class=''>
+            {% for tag in product.tags.all %}
+                <span>{{ tag.title }}</span> /
+            {% endfor %}
+        </p>
+        <p class='mt-10'> Цена: {{product.price}} com</p>
+        <p class='mt-10'>Описание: {{product.content}} </p>
+        <p class='mt-10'>Категория: {{product.category}}</p>
+        
+  </div>
+</div>
+{% endblock content %}  

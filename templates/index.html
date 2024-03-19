@@ -1,0 +1,61 @@
+{% extends 'main.html' %} 
+
+{% block title %}| Main{% endblock title %} 
+
+{% block content %}
+
+<div class="w-auto py-4 px-9">
+    <h1 class="text-center italic text-5xl text-pink-500 ">PERFUMERY</h1>
+    <div class="container mx-auto justify-center">
+      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-10 justify-center  gap-5">
+        {% for item in product %}
+        <div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-md">
+          <img src="{{ item.image.first.image.url }}" alt="{{ item.title }}" class="w-full h-64 object-cover rounded-t-lg" />
+          <div class="p-4">
+            <h3 class="font-semibold text-lg mb-2">{{ item.title }}</h3>
+            <p class="text-gray-700 mb-2">{{ item.category.title }}</p>
+            <p class="text-gray-700 mb-2">{{ item.price }} com</p>
+            <div class="flex flex-wrap">
+              {% for tag in item.tags.all %}
+              <span class="text-gray-500 text-sm mr-2 mb-2">{{ tag.name }}</span>
+              {% endfor %}
+            </div >
+            <a href="{% url 'details' id=item.id %}" class=" text-center mt-4 inline-block px-4 py-2 bg-red-400 text-white rounded hover:bg-red-500">View</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  
+    {% if product.has_previous or product.has_next %}
+    <nav>
+      <ul class="flex justify-center my-4">
+        {% if product.has_previous %}
+        <li>
+          <a class="page-link" aria-label="Previous" href="?page={{ product.previous_page_number }}">
+            <i class="fas fa-angle-left"></i> </a>
+        </li>
+        {% endif %}
+        {% for i in product.paginator.page_range %}
+        {% if product.number == i %}
+        <li>
+          <span class="page-link">{{ i }}</span>
+        </li>
+        {% else %}
+        <li>
+          <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if product.has_next %}
+        <li>
+          <a href="?page={{ product.next_page_number }}" class="page-link" aria-label="Next">
+            <i class="fas fa-angle-right"></i>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+  </div>
+{% endblock content%}  

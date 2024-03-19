@@ -1,0 +1,27 @@
+<nav class="bg-red-300">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a class=" text-white text-3xl font-bold italic sm:text-center md:text-center lg:text-left " href="/">Luxe Beauty Haven</a>
+          
+            <div class="hidden lg:flex flex-grow items-center justify-end" id="navbarSupportedContent">
+                <ul class="flex flex-col lg:flex-row list-none lg:ml-auto gap-5 items-center ">
+                    <li class="nav-item">
+                        <a class="text-white px-3 py-2 transition-colors duration-300 rounded-full hover:bg-red-400" href="{% url 'home' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-white px-3 py-2 transition-colors duration-300 rounded-full hover:bg-red-400" href="{% url 'home' %}">Парфюмерия</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-white px-3 py-2 transition-colors duration-300 rounded-full hover:bg-red-400" href="{% url 'home' %}">Бренды</a>
+                    </li>
+
+                    <form class="flex mx-auto" method='get' action="{% url 'search' %}" >
+                        <input class="form-input p-2 rounded-l-lg border-transparent bg-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent" type="search" name='search'  placeholder="Search" aria-label="Search">
+                        <button class="bg-white text-red-400 rounded-r-lg px-4 py-2 " type="submit">Поиск</button>
+                    </form>
+                </ul>
+              
+            </div>
+        </div>
+    </div>
+</nav>
