@@ -22,11 +22,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import redirect
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(product_urls), name='main'),
     path('', lambda r: redirect('/product/'), name='main'),
-
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
