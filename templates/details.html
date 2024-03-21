@@ -2,34 +2,68 @@
 
 {% block title %}| {{ product.title }}{% endblock title %}
 
-    {% block content %}
-    <div class='text-center mt-4 text-3xl'>
-        {{ product.title}}
-    </div>
-<div class = 'container mx-auto'>
-    <div class = 'flex flex-col lg:flex-row gap-5 lg:justify-between'>
-        <div class = 'p-4 w-full'>
-            <div class=''> 
-                {% for product in product.image.all %}
-                    <img src="{{ product.image.url }}" class="w-full" alt="{{ product.title }}">
-                {% endfor %}
-        
+{% block content %}
+<div class="text-center mt-4 text-3xl">
+    {{ product.title }}
+</div>
+<div class="flex justify-center items-center">
+    <div class="container mx-auto">
+        <div class="flex flex-col lg:flex-row gap-5 lg:justify-between">
+            <div class="p-4 w-full flex justify-center items-center">
+                <div>
+                    <img id="mainImage" src="{{ product.image.first.image.url }}" class="w-96 h-auto transform hover:scale-105 transition duration-1000" alt="{{ product.title }}">
+                    <p class="flex gap-3 mt-3">
+                        {% for product_image in product.image.all %}
+                            <img onclick="changeImage('{{ product_image.image.url }}')" src="{{ product_image.image.url }}" class="w-24 h-auto transform hover:scale-105 transition duration-1000" alt="{{ product.title }}">
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4 mt-40 mb-6 lg:w-3/4">
+                <p>
+                    {% for tag in product.tags.all %}
+                    <span>{{ tag.title }}</span> /
+                    {% endfor %}
+                </p>
+                <p class="mt-10 font-bold text-lg">Цена: {{ product.price }} сом</p>
+                <p class="mt-10">Описание: {{ product.content }}</p>
+                <p class="mt-10">Категория: {{ product.category }}</p>
             </div>
         </div>
-        
-        <div class=" p-4 mt-40 mb-6 lg:w-3/4 ">
-            <p class=''>
-                {% for tag in product.tags.all %}
-                    <span>{{ tag.title }}</span> /
-                {% endfor %}
-            </p>
-            <p class='mt-10'> Цена: {{product.price}} com</p>
-            <p class='mt-10'>Описание: {{product.content}} </p>
-            <p class='mt-10'>Категория: {{product.category}}</p>
-            
+
+        <div class="container mx-auto mb-12 mt-12" style="padding-left: 0;">
+            <div class="text-start">
+                <table class="table-auto border-collapse border mx-auto w-2/3">
+                    <thead class="bg-red-200 border">
+                        <tr>
+                            <th class="border border-gray-800 px-4 py-2">Название</th>
+                            <th class="border border-gray-800 px-4 py-2">Детали</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attribute in product.attributes.all %}
+                        <tr class="border border-gray-800">
+                            <td class="border border-gray-800 px-4 py-2">{{ attribute.key }}</td>
+                            <td class="border border-gray-800 px-4 py-2">
+                                {% if attribute.link %}
+                                <a href="{{ attribute.link }}" class="text-blue-500 hover:underline">{{ attribute.value }}</a>
+                                {% else %}
+                                {{ attribute.value }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    
 </div>
-{% endblock content %}  
 
+<script>
+    function changeImage(newImageUrl) {
+        document.getElementById('mainImage').src = newImageUrl;
+    }
+</script>
+{% endblock content %}

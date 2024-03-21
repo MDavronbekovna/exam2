@@ -26,7 +26,7 @@
           <div class="p-3">
             <h3 class="font-semibold text-lg ">{{ item.title }}</h3>
             <p class="text-gray-700 ">{{ item.category.title }}</p>
-            <p class="text-gray-700 ">{{ item.price }} com</p>
+            <p class="text-gray-700 ">{{ item.price }} сом</p>
             <div class="flex flex-wrap">
               {% for tag in item.tags.all %}
               <span class="text-gray-500 text-sm mr-2 ">{{ tag.name }}</span>
@@ -42,26 +42,26 @@
   
     {% if product.has_previous or product.has_next %}
     <nav>
-      <ul class="flex justify-center my-4">
+      <ul class="flex justify-center my-4 gap-4 ">
         {% if product.has_previous %}
-        <li>
-          <a class="page-link" aria-label="Previous" href="?page={{ product.previous_page_number }}">
+        <li >
+          <a class="page-link " aria-label="Previous" href="?page={{ product.previous_page_number }}">
             <i class="fas fa-angle-left"></i> </a>
         </li>
         {% endif %}
         {% for i in product.paginator.page_range %}
         {% if product.number == i %}
-        <li>
+        <li class='bg-red-600 py-2 px-3 rounded'>
           <span class="page-link">{{ i }}</span>
         </li>
         {% else %}
-        <li>
-          <a href="?page={{ i }}" class="page-link">{{ i }}</a>
-        </li>
+       
+          <a href="?page={{ i }}" class="page-link"> <li class='bg-red-400 py-2 px-3 rounded'>{{ i }} </li></a>
+       
         {% endif %}
         {% endfor %}
         {% if product.has_next %}
-        <li>
+        <li class='bg-red-500 '>
           <a href="?page={{ product.next_page_number }}" class="page-link" aria-label="Next">
             <i class="fas fa-angle-right"></i>
           </a>

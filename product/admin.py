@@ -3,6 +3,15 @@ from django.contrib import admin
 from .models import Product,Image, Category, Tag, ProductAttribute
 from django.utils.safestring import mark_safe
 
+class ProductAttributeStackedInline(admin.StackedInline):
+    model = ProductAttribute
+    extra = 1
+
+class ImageStackedInline(admin.StackedInline):
+    model = Image
+    extra = 1
+
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -12,7 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category', 'date', 'is_published', 'tags')
     readonly_fields = ('date', 'get_full_image')
     filter_horizontal = ('tags',)
-    # inlines = (NewsAttributeStackedInline, AdditionalNewsInfoTabularInline)
+    inlines = (ProductAttributeStackedInline,ImageStackedInline)
 
     @admin.display(description='Изображение')
     def get_image(self, product: Product):
@@ -35,10 +44,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
     search_fields = ('title',)
 
-
-class ProductAttributeStackedInline(admin.StackedInline):
-    model = ProductAttribute
-    extra = 1
 
 
 admin.site.register(Image)

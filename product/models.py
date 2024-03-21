@@ -32,8 +32,8 @@ class ProductAttribute(models.Model):
         verbose_name='атрибут продукта'
         verbose_name_plural = 'атрибуты продуктов'
     
-    product = models.ForeignKey(Product,on_delete=models.PROTECT, related_name='product')
-    title = models.CharField(verbose_name='название', max_length=100)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='attributes')
+    key = models.CharField(verbose_name='название', max_length=100)
     value = models.CharField(verbose_name='значение',max_length=100)
     link = models.URLField(verbose_name='ссылка', null=True, blank=True)
 

@@ -1,12 +1,21 @@
-
+{% load static %}
+<script type="module" src="js/script.js"></script>
 
 
 <nav class="bg-red-300">
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between py-4">
-            <a class=" text-white text-3xl font-bold italic sm:text-center md:text-center lg:text-left " href="/">Luxe Beauty Haven</a>
+            <a class="text-white text-3xl font-bold italic sm:text-center md:text-center lg:text-left" href="/">Luxe Beauty Haven</a>
+    
+            <div id="burgerBtn" class="block lg:hidden cursor-pointer">
+                <img src="{% static 'burger1.png' %}" class="w-6 h-6 fill-current" alt="Burger Menu">
+            </div>
+            
+            <div id="closeBtn" class="hidden lg:hidden cursor-pointer">
+                <img src="{% static 'burger1.png' %}" class="w-6 h-6 fill-current" alt="Close Menu">
+            </div>
           
-            <div class="hidden lg:flex flex-grow items-center justify-end" id="navbarSupportedContent">
+            <div  class="hidden lg:flex flex-grow items-center justify-end" id="navbarSupportedContent">
                 <ul class="flex flex-col lg:flex-row list-none lg:ml-auto gap-5 items-center ">
                     <li class="nav-item">
                         <a class="text-white px-3 py-2 transition-colors duration-300 rounded-full hover:bg-red-400" href="{% url 'home' %}">Главная</a>
@@ -17,14 +26,28 @@
                     <li class="nav-item">
                         <a class="text-white px-3 py-2 transition-colors duration-300 rounded-full hover:bg-red-400" href="{% url 'home' %}">Бренды</a>
                     </li>
-
-                    <form class="flex mx-auto" method='get' action="{% url 'search' %}" >
-                        <input class="form-input p-2 rounded-l-lg border-transparent bg-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent" type="search" name='search'  placeholder="Search" aria-label="Search">
-                        <button class="bg-white text-red-400 rounded-r-lg px-4 py-2 " type="submit">Поиск</button>
-                    </form>
                 </ul>
               
+                <!-- Форма поиска -->
+                <form class="flex" method='get' action="{% url 'search' %}">
+                    <input class="form-input p-2 rounded-l-lg border-transparent bg-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent" type="search" name='search' placeholder="Поиск" aria-label="Search" value="{{ request.GET.search }}">
+                    <button class="bg-white text-red-400 rounded-r-lg px-4 py-2" type="submit">Поиск</button>
+                </form>
             </div>
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        navbarToggle.addEventListener('click', function() {
+            if (navbarCollapse.classList.contains('hidden')) {
+                navbarCollapse.classList.remove('hidden');
+            } else {
+                navbarCollapse.classList.add('hidden');
+            }
+        });
+    });
+</script>
